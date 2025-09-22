@@ -1,3 +1,4 @@
+// we used accumaltor pattern (loop through each value in the data and then add it in this variable)
 let productHtml = '';
 // loop through products array for each item's data and display it in html using dom
 products.forEach((product) => {
@@ -46,7 +47,8 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart"
+      data-product-id="${product.id}">
         Add to Cart
       </button>
     </div>
@@ -55,3 +57,31 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid')
   .innerHTML = productHtml;
+
+// add to cart function
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      // we used dataset method to get values attached to data attribute then with '.' we can retrive exact value we need, and stored it into a variable
+      const productId = button.dataset.productId;
+
+      let matchingItem;
+      // check if product is already in the cart then only increase the quantity. we loop through cart array and see if product is already in cart then store its value in a variable
+      cart.forEach((item) => {
+        if(productId === item.productId){
+          matchingItem = item;
+        }
+      });
+
+      // push data values into cart array in cart.js file. If product already exists increase only quantity
+      if(matchingItem) {
+        matchingItem.quantity += 1;
+      } else {
+        cart.push({
+        productId: productId,
+        quantity: 1
+        });
+      };
+
+    });
+  });
