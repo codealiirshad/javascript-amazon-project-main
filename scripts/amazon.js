@@ -83,5 +83,14 @@ document.querySelectorAll('.js-add-to-cart')
         });
       };
 
+      // making cart quantity element interactive. loop through cart and store the quanity value in variable(accumaltor pattern)
+      let cartQuantity = 0;
+      cart.forEach((item) => {
+        cartQuantity += item.quantity;
+      });
+
+      document.querySelector('.js-cart-quantity')
+        .innerHTML = cartQuantity;
+
     });
   });
