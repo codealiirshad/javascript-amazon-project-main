@@ -26,7 +26,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select>
+        <select class="js-quantity-selector-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -65,6 +65,10 @@ document.querySelectorAll('.js-add-to-cart')
       // we used dataset method to get values attached to data attribute then with '.' we can retrive exact value we need, and stored it into a variable
       const productId = button.dataset.productId;
 
+      // we use above productId value here as these belong to button of selected item, it is basically product.id
+      let quanitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`)
+      let quanitySelector = Number(quanitySelectorElement.value);
+
       let matchingItem;
       // check if product is already in the cart then only increase the quantity. we loop through cart array and see if product is already in cart then store its value in a variable
       cart.forEach((item) => {
@@ -79,7 +83,7 @@ document.querySelectorAll('.js-add-to-cart')
       } else {
         cart.push({
         productId: productId,
-        quantity: 1
+        quantity: quanitySelector
         });
       };
 
