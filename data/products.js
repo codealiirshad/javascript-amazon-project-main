@@ -656,5 +656,115 @@ const products = [
       "apparel",
       "mens"
     ]
-  }
+  },
+  {
+    id: "a1-b1-c1",
+    image: "images/products/variations/luxury-tower-set-4-piece.jpg",
+    name: "Luxury Towel Set 4 Piece",
+    rating: {
+      stars: 4,
+      count: 1275
+    },
+    priceCents: 2000,
+    keywords: [
+      "luxury",
+      "towel set",
+      "4 piece"
+    ]
+  },
+  {
+    id: "a1-b1-c2",
+    image: "images/products/variations/luxury-tower-set-6-piece.jpg",
+    name: "Luxury Towel Set 6 Piece",
+    rating: {
+      stars: 4.5,
+      count: 890
+    },
+    priceCents: 3000,
+    keywords: [
+      "luxury",
+      "towel set",
+      "6 piece"
+    ]
+  },
+  {
+    id: "a22-b1-c1",
+    image: "images/products/variations/men-athletic-shoes-black.jpg",
+    name: "Black Athletic Shoes For Men",
+    rating: {
+      stars: 4.5,
+      count: 3256
+    },
+    priceCents: 8000,
+    keywords: [
+      "black shoes",
+      "shoes for men",
+      "athletic shoes",
+      "men's fashion"
+    ]
+  },
+  {
+    id: "a221-b1-c1",
+    image: "images/products/variations/men-athletic-shoes-green.jpg",
+    name: "Green Athletic Shoes For Men",
+    rating: {
+      stars: 4.5,
+      count: 2261
+    },
+    priceCents: 7000,
+    keywords: [
+      "green shoes",
+      "shoes for men",
+      "athletic shoes",
+      "men's fashion"
+    ]
+  },
+  {
+    id: "a2211-b1-c1",
+    image: "images/products/variations/men-chino-pants-beige.jpg",
+    name: "Beige Chino Pants For Men",
+    rating: {
+      stars: 4.5,
+      count: 7590
+    },
+    priceCents: 80000,
+    keywords: [
+      "beige pants",
+      "pants for men",
+      "chino pants",
+      "men's fashion"
+    ]
+  },
+  {
+    id: "a22111-b1-c1",
+    image: "images/products/variations/men-chino-pants-black.jpg",
+    name: "Black Chino Pants For Men",
+    rating: {
+      stars: 5,
+      count: 9250
+    },
+    priceCents: 90000,
+    keywords: [
+      "black pants",
+      "pants for men",
+      "chino pants",
+      "men's fashion"
+    ]
+  },
+  {
+    id: "a2211-b111-c1",
+    image: "images/products/variations/men-chino-pants-green.jpg",
+    name: "Green Chino Pants For Men",
+    rating: {
+      stars: 4.5,
+      count: 6520
+    },
+    priceCents: 80000,
+    keywords: [
+      "green pants",
+      "pants for men",
+      "chino pants",
+      "men's fashion"
+    ]
+  },
 ];
