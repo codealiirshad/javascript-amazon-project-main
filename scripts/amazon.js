@@ -1,3 +1,6 @@
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
+
 // we used accumaltor pattern (loop through each value in the data and then add it in this variable)
 let productHtml = '';
 // loop through products array for each item's data and display it in html using dom
