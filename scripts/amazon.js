@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 // we used accumaltor pattern (loop through each value in the data and then add it in this variable)
@@ -64,61 +64,56 @@ document.querySelector('.js-products-grid')
 // object to store timeout ids
 const addedMessageTimeouts = {};
 
-// add to cart function
+// update cart quantity using selector
+function updateCartQuantity() {
+  let cartQuantity = 0;
+    cart.forEach((item) => {
+      cartQuantity += item.quanitySelector;
+    });
+
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity;
+};
+
+// display message 'added' and set timeout for it to disappear
+function addedMessageTimeout(productId) {
+
+  let addedToCartElement = document.querySelector(`.js-added-to-cart-${productId}`);
+  addedToCartElement.classList.add('show-added-to-cart');
+  
+  // first we check if there is any previous id in timeout obj. 
+  // if it is then clear the interval.
+  const previousTimeoutId = addedMessageTimeouts[productId];
+  if(previousTimeoutId) {
+    clearTimeout(previousTimeoutId);
+  };
+
+  // here we set timeout and assign a variable which we store into timeout object
+  const timeoutId = setTimeout(() => {
+    addedToCartElement.classList.remove('show-added-to-cart');
+  }, 2000);
+
+  // here we are assigning timeout object values of above variable
+  addedMessageTimeouts[productId] = timeoutId;
+};
+
+// add to cart button. add items to cart, update cart quantity, and timeout for added message
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
-      // we used dataset method to get values attached to data attribute then with '.' we can retrive exact value we need, and stored it into a variable
-      const productId = button.dataset.productId;
+      
+      // getting data from data attribute on button
+      const productId = button.dataset.productId;      
 
-      // call added to cart element here. add a class to it and styleit in css. once button clicked the message will show.
-      let addedToCartElement = document.querySelector(`.js-added-to-cart-${productId}`);
-      addedToCartElement.classList.add('show-added-to-cart');
-
-      // first we check if there is any previous id in timeout obj. if it is then clear the interval.
-      const previousTimeoutId = addedMessageTimeouts[productId];
-
-      if(previousTimeoutId) {
-        clearTimeout(previousTimeoutId);
-      };
-      // here we set timeout and assign a variable which we store into timeout object
-      const timeoutId = setTimeout(() => {
-        // call added to cart
-        addedToCartElement.classList.remove('show-added-to-cart');
-      }, 2000);
-      // here we are assigning timeout object values of above variable
-      addedMessageTimeouts[productId] = timeoutId;
-
-      // we use above productId value here as these belong to button of selected item, it is basically product.id
+      /* it calls selector input and gets its value. Why did not i put it in update func?
+       becaue i need to use this as a parameter for add to cart function and i can not call it from a function */
       let quanitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`);
       let quanitySelector = Number(quanitySelectorElement.value);
 
-      let matchingItem;
-      // check if product is already in the cart then only increase the quantity. we loop through cart array and see if product is already in cart then store its value in a variable
-      cart.forEach((item) => {
-        if(productId === item.productId){
-          matchingItem = item;
-        }
-      });
-
-      // push data values into cart array in cart.js file. If product already exists increase only quantity
-      if(matchingItem) {
-        matchingItem.quantity += 1;
-      } else {
-        cart.push({
-        productId,
-        quanitySelector
-        });
-      };
-
-      // making cart quantity element interactive. loop through cart and store the quanity value in variable(accumaltor pattern)
-      let cartQuantity = 0;
-      cart.forEach((item) => {
-        cartQuantity += item.quanitySelector;
-      });
-
-      document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity;
-
+      addToCart(productId, quanitySelector); // invoke function to add items to cart
+      updateCartQuantity(); // invoke function to update cart items'quantity
+      
+      addedMessageTimeout(productId); // invoke function to display message once button clicked
+    
     });
   });
