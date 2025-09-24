@@ -42,7 +42,7 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -58,6 +58,9 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid')
   .innerHTML = productHtml;
 
+// object to store timeout ids
+const addedMessageTimeouts = {};
+
 // add to cart function
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
@@ -65,8 +68,26 @@ document.querySelectorAll('.js-add-to-cart')
       // we used dataset method to get values attached to data attribute then with '.' we can retrive exact value we need, and stored it into a variable
       const productId = button.dataset.productId;
 
+      // call added to cart element here. add a class to it and styleit in css. once button clicked the message will show.
+      let addedToCartElement = document.querySelector(`.js-added-to-cart-${productId}`);
+      addedToCartElement.classList.add('show-added-to-cart');
+
+      // first we check if there is any previous id in timeout obj. if it is then clear the interval.
+      const previousTimeoutId = addedMessageTimeouts[productId];
+
+      if(previousTimeoutId) {
+        clearTimeout(previousTimeoutId);
+      };
+      // here we set timeout and assign a variable which we store into timeout object
+      const timeoutId = setTimeout(() => {
+        // call added to cart
+        addedToCartElement.classList.remove('show-added-to-cart');
+      }, 2000);
+      // here we are assigning timeout object values of above variable
+      addedMessageTimeouts[productId] = timeoutId;
+
       // we use above productId value here as these belong to button of selected item, it is basically product.id
-      let quanitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`)
+      let quanitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`);
       let quanitySelector = Number(quanitySelectorElement.value);
 
       let matchingItem;
@@ -82,15 +103,15 @@ document.querySelectorAll('.js-add-to-cart')
         matchingItem.quantity += 1;
       } else {
         cart.push({
-        productId: productId,
-        quantity: quanitySelector
+        productId,
+        quanitySelector
         });
       };
 
       // making cart quantity element interactive. loop through cart and store the quanity value in variable(accumaltor pattern)
       let cartQuantity = 0;
       cart.forEach((item) => {
-        cartQuantity += item.quantity;
+        cartQuantity += item.quanitySelector;
       });
 
       document.querySelector('.js-cart-quantity')
