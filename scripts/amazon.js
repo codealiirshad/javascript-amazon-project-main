@@ -67,8 +67,8 @@ const addedMessageTimeouts = {};
 // update cart quantity using selector
 function updateCartQuantity() {
   let cartQuantity = 0;
-    cart.forEach((item) => {
-      cartQuantity += item.quanitySelector;
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quanitySelector;
     });
 
     document.querySelector('.js-cart-quantity')
