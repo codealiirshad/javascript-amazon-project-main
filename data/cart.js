@@ -28,4 +28,19 @@ export function addToCart(productId, quanitySelector) {
     quanitySelector
     });
   };
+};
+
+// remove items from cart
+export function removeFromCart(productId) {
+  // create a new cart array to store updated reuslt
+  const newCart = [];
+
+  cart.forEach((cartItem) => {
+    if(cartItem.productId !== productId) {
+      newCart.push(cartItem);
+    }
+  });
+
+  // assign cart this new value
+  cart = newCart;
 }

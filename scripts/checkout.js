@@ -1,6 +1,6 @@
 // import cart and product module
 // then use productId from cart to get other propertis of item from products
-import { cart } from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utilities/money.js";
 
@@ -46,7 +46,7 @@ cart.forEach((cartItem) => {
             <span class="update-quantity-link link-primary">
               Update
             </span>
-            <span class="delete-quantity-link link-primary">
+            <span class="delete-quantity-link link-primary js-delete-quantity-link" data-product-id="${matchingProduct.id}">
               Delete
             </span>
           </div>
@@ -100,6 +100,19 @@ cart.forEach((cartItem) => {
     </div>
   `;
 
-  document.querySelector('.js-cart-summary')
+});
+
+document.querySelector('.js-cart-summary')
     .innerHTML = cartSummaryHTML;
+
+// call delete button in checkout
+const deleteLink = document.querySelectorAll('.js-delete-quantity-link');
+
+// get each item and productId using data- attribute.
+deleteLink.forEach((link) => {
+  link.addEventListener('click', () => {
+    const productId = link.dataset.productId;
+
+    removeFromCart(productId);
+  });
 });
