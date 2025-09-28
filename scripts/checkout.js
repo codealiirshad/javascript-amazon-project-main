@@ -1,8 +1,9 @@
 // import cart and product module
 // then use productId from cart to get other propertis of item from products
-import { cart, removeFromCart } from "../data/cart.js";
+import { calculateCartQuantity, cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utilities/money.js";
+
 
 // variable to store html code
 let cartSummaryHTML = '';
@@ -121,5 +122,19 @@ deleteLink.forEach((link) => {
       `.js-cart-item-container-${productId}`
     );
     container.remove();
+
+    checkoutQuantity(); // update cart quantity on delete clicked
   });
 });
+
+checkoutQuantity();
+
+// update checkout items in the header
+function checkoutQuantity() {
+  
+  let cartQuantity = calculateCartQuantity();
+
+  document.querySelector('.js-return-to-home-link')
+    .innerHTML = `${cartQuantity} items`;
+}
+  

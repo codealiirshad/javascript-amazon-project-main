@@ -1,4 +1,4 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utilities/money.js";
 
@@ -62,18 +62,17 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid')
   .innerHTML = productHtml;
 
+updateCartQuantity();
 // object to store timeout ids
 const addedMessageTimeouts = {};
 
 // update cart quantity using selector
 function updateCartQuantity() {
-  let cartQuantity = 0;
-    cart.forEach((cartItem) => {
-      cartQuantity += cartItem.quantity;
-    });
 
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
+  let cartQuantity = calculateCartQuantity();
+
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
 };
 
 // display message 'added' and set timeout for it to disappear
