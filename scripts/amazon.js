@@ -69,7 +69,7 @@ const addedMessageTimeouts = {};
 function updateCartQuantity() {
   let cartQuantity = 0;
     cart.forEach((cartItem) => {
-      cartQuantity += cartItem.quanitySelector;
+      cartQuantity += cartItem.quantity;
     });
 
     document.querySelector('.js-cart-quantity')
@@ -109,9 +109,9 @@ document.querySelectorAll('.js-add-to-cart')
       /* it calls selector input and gets its value. Why did not i put it in update func?
        becaue i need to use this as a parameter for add to cart function and i can not call it from a function */
       let quanitySelectorElement = document.querySelector(`.js-quantity-selector-${productId}`);
-      let quanitySelector = Number(quanitySelectorElement.value);
+      let quantitySelector = Number(quanitySelectorElement.value);
 
-      addToCart(productId, quanitySelector); // invoke function to add items to cart
+      addToCart(productId, quantitySelector); // invoke function to add items to cart
       updateCartQuantity(); // invoke function to update cart items'quantity
       
       addedMessageTimeout(productId); // invoke function to display message once button clicked
