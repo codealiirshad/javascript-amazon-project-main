@@ -62,7 +62,6 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid')
   .innerHTML = productHtml;
 
-updateCartQuantity();
 // object to store timeout ids
 const addedMessageTimeouts = {};
 
@@ -74,6 +73,8 @@ function updateCartQuantity() {
   document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity;
 };
+
+updateCartQuantity();
 
 // display message 'added' and set timeout for it to disappear
 function addedMessageTimeout(productId) {
